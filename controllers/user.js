@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const Deck = require('../models/Deck')
+const { findOne } = require('../models/User')
 
 const getUser = async (req, res, next) => {
     try {
@@ -81,16 +82,28 @@ const replaceUser = async(req, res, next) => {
     }
 }
 
-const secrect = async () => {
+const secrect = async (req, res, next) => {
 
 }
 
-const signIn = async () => {
+const signIn = async (req, res, next) => {
 
 } 
 
-const signUp = async () => {
-
+const signUp = async (req, res, next) => {
+    try {
+        const { firstName, lastName, email, password} = req.value.body
+        const foundUser = await User.findOne({ email })
+        if (foundUser) {
+            return res.status(403).json({error: {message: 'Email is already exists'}})
+        }
+        
+        const newUser = new User({firstName, lastName, email, password})
+        newUser.save()
+        return res.status(201).json({success: true})
+    } catch (err) {
+        next(err)
+    }
 }
 
 const updateUser = async(req, res, next) => {

@@ -39,16 +39,16 @@ const validateParam = (schema, name) => {
 }
 
 const schemas = {
-    authorSignInSchema: {
+    authorSignInSchema: Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/).required(),
-    },
-    authorSignUpSchema: {
-        'firstName': Joi.string().min(2).required,
-        'lastName': Joi.string().min(2).required,
+    }),
+    authorSignUpSchema: Joi.object().keys({
+        firstName: Joi.string().min(2).required(),
+        lastName: Joi.string().min(2).required(),
         email: Joi.string().email().required(),
         password: Joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/).required(),
-    },
+    }),
     idSchema: Joi.object().keys({
         param: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
     }),
