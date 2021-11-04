@@ -81,6 +81,18 @@ const replaceUser = async(req, res, next) => {
     }
 }
 
+const secrect = async () => {
+
+}
+
+const signIn = async () => {
+
+} 
+
+const signUp = async () => {
+
+}
+
 const updateUser = async(req, res, next) => {
     // member of field
     try {
@@ -102,5 +114,8 @@ module.exports = {
     newUser,
     newUserDecks,
     replaceUser,
+    secrect,
+    signIn,
+    signUp,
     updateUser,
 }

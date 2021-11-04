@@ -8,6 +8,15 @@ router.route('/')
     .get(UserController.index)
     .post(validateBody(schemas.userSchema), UserController.newUser)
 
+router.route('/signup')
+    .post(validateBody(schemas.authorSignUpSchema), UserController.signUp)
+
+router.route('/signin')
+    .post(validateBody(schemas.authorSignInSchema), UserController.signIn)
+
+router.route('/secrect')
+    .get(UserController.secrect)
+
 router.route('/:userID')
     .get(validateParam(schemas.idSchema, 'userID'), UserController.getUser)
     .put(validateParam(schemas.idSchema, 'userID'), validateBody(schemas.userSchema), UserController.replaceUser)

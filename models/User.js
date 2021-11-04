@@ -9,7 +9,14 @@ const UserSchema = new Schema({
         type: String
     },
     email: {
-        type: String
+        type: String,
+        unique: true,
+        lowercase: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
     },
     decks: [{
         type: Schema.Types.ObjectId,
