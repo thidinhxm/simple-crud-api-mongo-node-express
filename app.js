@@ -2,7 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
-
+require('dotenv').config()
 // Setup connect mongodb by mongoose
 mongoose.connect('mongodb://127.0.0.1:27017/apiStarter', {
         useNewUrlParser: true,

@@ -1,7 +1,17 @@
 const User = require('../models/User')
 const Deck = require('../models/Deck')
 const { findOne } = require('../models/User')
+const JWT = require('jsonwebtoken')
 
+const { JWT_SECRECT } = require('../config/index')
+const encodedToken = (userID) => {
+    return JWT.sign({
+        iss: 'Thi Dinh',
+        sub: userID,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 3)
+    }, JWT_SECRECT)
+}
 const getUser = async (req, res, next) => {
     try {
         const { userID } = req.value.params
@@ -97,9 +107,13 @@ const signUp = async (req, res, next) => {
         if (foundUser) {
             return res.status(403).json({error: {message: 'Email is already exists'}})
         }
-        
+
         const newUser = new User({firstName, lastName, email, password})
         newUser.save()
+
+        const token = encodedToken(newUser._id)
+        res.setHeader('Authorization', token)
+        
         return res.status(201).json({success: true})
     } catch (err) {
         next(err)
